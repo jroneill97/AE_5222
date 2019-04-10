@@ -1,4 +1,0 @@
-clc; clear; 
-
-a_2 = 30;
-a_m = @(a_1) 0.5*(tand(a_1) + tan(a_2));
