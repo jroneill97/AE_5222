@@ -31,17 +31,17 @@ nip             = 2;        % Number of integration points
 for N = 1:n_iterations
     fprintf("---------- Iteration %d of %d ----------\n", N, n_iterations);
     new_repeat_list = 0;
-    clf;
-    hold on;
-    contour(linspace(-1,1,N_G), linspace(-1,1,N_G),...
-            reshape(threat_value_true,[N_G N_G])',N_G); % Contour plot
-    quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),g1,g2); % Wind gradient
-%     xlim([1 - 2*check_radius 1 + 2*check_radius]);
-%     ylim([1 - 2*check_radius 1 + 2*check_radius]);
-    xlim([-1 1]);
-    ylim([-1 1]);
-    grid on;
-    viscircles([1 1],check_radius);
+%     clf;
+%     hold on;
+%     contour(linspace(-1,1,N_G), linspace(-1,1,N_G),...
+%             reshape(threat_value_true,[N_G N_G])',N_G); % Contour plot
+%     quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),g1,g2); % Wind gradient
+% %     xlim([1 - 2*check_radius 1 + 2*check_radius]);
+% %     ylim([1 - 2*check_radius 1 + 2*check_radius]);
+%     xlim([-1 1]);
+%     ylim([-1 1]);
+%     grid on;
+%     viscircles([1 1],check_radius);
     
     for current_psi_0 = psi_0_span
         t         = t0;       % initialize t
@@ -62,8 +62,8 @@ for N = 1:n_iterations
             states_out(k,:) = currentStates'; 
         end     
             
-        plot(states_out(:,1),states_out(:,2)); %,'-s'); % Plot calculated trajectory
-        pause(0.001);
+%         plot(states_out(:,1),states_out(:,2)); %,'-s'); % Plot calculated trajectory
+%         pause(0.001);
         
         for j = 1:length(states_out) % Test whether the trajectory crosses check radius
             if (norm([states_out(j,1) states_out(j,2)] - [1 1]) < check_radius)...
