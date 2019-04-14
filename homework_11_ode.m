@@ -1,24 +1,14 @@
-function states_dot = homework_11_ode(states,cost,g1,g2,dw_x_dx,dw_x_dy,dw_y_dx,dw_y_dy,N_G)
+function states_dot = homework_11_ode(states,V,w_x,w_y,N_G,psi_dot)
     x   = states(1);
     y   = states(2);
     psi = states(3); 
+   
+    w_x_current = w_x(x,y);
+    w_y_current = w_y(x,y);
+        
+    x_dot       = V*cos(psi) + w_x_current;
+    y_dot       = V*sin(psi) + w_y_current;
+    psi_dot_out = psi_dot(psi,x,y);
     
-    [~,x_index] = min(abs(x - linspace(-1,1,N_G)));
-    [~,y_index] = min(abs(y - linspace(-1,1,N_G)));
-    
-    w_x = g1(x_index,y_index);
-    w_y = g2(x_index,y_index);
-    
-    dw_x_dx = dw_x_dx(x_index,y_index);
-    dw_x_dy = dw_x_dy(x_index,y_index);
-    
-    dw_y_dx = dw_y_dx(x_index,y_index);
-    dw_y_dy = dw_y_dy(x_index,y_index);
-    
-    x_dot   = (0.75)*cos(psi) + w_x;
-    y_dot   = (0.75)*sin(psi) + w_y;
-    psi_dot = dw_y_dx*sin(psi)^2 - dw_x_dy*cos(psi)^2 + ...
-              (dw_x_dx - dw_y_dy)*sin(psi)*cos(psi);
-    
-    states_dot = [x_dot; y_dot; psi_dot];    
+    states_dot = [x_dot; y_dot; psi_dot_out];    
 end

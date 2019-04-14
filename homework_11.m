@@ -3,45 +3,49 @@
 %
 clc; clf; clear variables;
 hw2_2017_main;
-%% To-do
-% - check gradients
-% - check psi_dot
-
-
-
-
-
+generate_functions;
 %% Calculate wind-related gradients from cost matrix
 cost = reshape(threat_value_true,[N_G N_G])';
-[g1, g2] = gradient(-cost); % Calculate the wind gradient
-[dw_x_dx,dw_x_dy] = gradient(g1); % Calculate derivatives of 
-[dw_y_dx,dw_y_dy] = gradient(g2); % Wind gradient
+% [g1, g2] = gradient(-cost); % Calculate the wind gradient
+% [dw_x_dx,dw_x_dy] = gradient(g1); % Calculate derivatives of 
+% [dw_y_dx,dw_y_dy] = gradient(g2); % Wind gradient
     
 %% Calculate optimal trajectories given a series of initial heading angles
 num_psi_0       = 25;       % Number of initial heading angles between 0 and 2pi
 n_iterations    = 6;        % Number of iterations (more results in a more precise final answer)
 t0              = 0;        % Initial Time
-tf              = 5;       % Final Time (not necessary to adjust)
+tf              = 10;        % Final Time (not necessary to adjust)
 pos_0           = [-1 -1];  % Initial x, y coordinates
-psi_0_span      = linspace(pi/6,pi/3,100);
+psi_0_span      = linspace(pi/5,pi/3,100);
 psi_repeat_list = psi_0_span;
 check_radius    = 0.1;
 nip             = 2;        % Number of integration points
 
+x = linspace(-1,1,N_G);
+y = linspace(-1,1,N_G);
+
+for i = 1:length(x)
+    for j = 1:length(y)
+        grad_x(i,j) = w_x(x(i),y(j));
+        grad_y(i,j) = w_y(x(i),y(j));
+    end
+end
+
+
 for N = 1:n_iterations
     fprintf("---------- Iteration %d of %d ----------\n", N, n_iterations);
     new_repeat_list = 0;
-%     clf;
-%     hold on;
-%     contour(linspace(-1,1,N_G), linspace(-1,1,N_G),...
-%             reshape(threat_value_true,[N_G N_G])',N_G); % Contour plot
-%     quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),g1,g2); % Wind gradient
-% %     xlim([1 - 2*check_radius 1 + 2*check_radius]);
-% %     ylim([1 - 2*check_radius 1 + 2*check_radius]);
-%     xlim([-1 1]);
-%     ylim([-1 1]);
-%     grid on;
-%     viscircles([1 1],check_radius);
+    clf;
+    hold on;
+    %contour(linspace(-1,1,N_G), linspace(-1,1,N_G),...
+    %        reshape(threat_value_true,[N_G N_G])',N_G); % Contour plot
+    quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),grad_x,grad_y); % Wind gradient
+%     xlim([1 - 2*check_radius 1 + 2*check_radius]);
+%     ylim([1 - 2*check_radius 1 + 2*check_radius]);
+    xlim([-1 1]);
+    ylim([-1 1]);
+    grid on;
+    viscircles([1 1],check_radius);
     
     for current_psi_0 = psi_0_span
         t         = t0;       % initialize t
@@ -55,18 +59,18 @@ for N = 1:n_iterations
             t2 = step_size*k;
             temp_tspan = t1:(t2-t1)/nip:t2; 
             [tNew,tempStates] = ode45(@(t,y) homework_11_ode...
-                                       (y,cost,g1,g2,dw_x_dx,dw_x_dy,dw_y_dx,dw_y_dy,N_G),...
+                                       (y,V,w_x,w_y,N_G,psi_dot),...
                                         temp_tspan,currentStates);
             t(k) = t2;
             currentStates = tempStates(nip+1,1:3)';
             states_out(k,:) = currentStates'; 
         end     
             
-%         plot(states_out(:,1),states_out(:,2)); %,'-s'); % Plot calculated trajectory
-%         pause(0.001);
+        plot(states_out(:,1),states_out(:,2)); %,'-s'); % Plot calculated trajectory
+        pause(0.001);
         
-        for j = 1:length(states_out) % Test whether the trajectory crosses check radius
-            if (norm([states_out(j,1) states_out(j,2)] - [1 1]) < check_radius)...
+        for y = 1:length(states_out) % Test whether the trajectory crosses check radius
+            if (norm([states_out(y,1) states_out(y,2)] - [1 1]) < check_radius)...
             && (~ismember(current_psi_0,new_repeat_list))
                 new_repeat_list = [new_repeat_list current_psi_0];
                 break;
