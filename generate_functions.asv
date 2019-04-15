@@ -53,15 +53,15 @@ dwy_dy = dwy_dy + dwy_dy_n(n);
 end
 
 syms psi
-p1=         -c/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
-p2=         -(tan(psi)*c)/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
+p1=@(n)         -c/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
+p2=@(n)         -(tan(psi)*c)/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
 
 
-p1_dot_sum_part=@(n)    ((theta(n)*(x-x_bar(n)))/(sqrt(2*pi)*v_n^1.5))*...
-                        exp((-1/(2*v_n))*((x-x_bar(n))^2 + (y-y_bar(n))^2));
+p1_dot_sum_part=@(n)    (theta(n)*(x-x_bar(n))/(sqrt(2*pi*v_n)*v_n))*...
+                        exp((-1/(2*v_n))*(x-x_bar(n))^2 + (y-y_bar(n))^2);
                     
-p2_dot_sum_part=@(n)    ((theta(n)*(y-y_bar(n))/(sqrt(2*pi*v_n)*v_n)))*...
-                        exp((-1/(2*v_n))*((x-x_bar(n))^2 + (y-y_bar(n))^2));
+p2_dot_sum_part=@(n)    (theta(n)*(y-y_bar(n))/(sqrt(2*pi*v_n)*v_n))*...
+                        exp((-1/(2*v_n))*(x-x_bar(n))^2 + (y-y_bar(n))^2);
 
 p1_dot = -(p1*dwx_dx + p2*dwy_dx);
 p2_dot = -(p1*dwx_dy + p2*dwy_dy);
@@ -72,10 +72,10 @@ for n = 1:N_p
 end
 
 
-% p1 = -c/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
-% P2 = (-tan(psi)*c)/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
+p1 = -c/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
+P2 = (-tan(psi)*c)/(V*cos(psi) + w_x + tan(psi)*(V*sin(psi) + w_y));
 
-psi_dot = ((p2_dot*p1 - p1_dot*p2)*cos(psi)^2)/p1^2;
+psi_dot = (cos(psi)^2)*((p2_dot*p1 - p1_dot*p2)/p1^2);
 
 psi_dot = matlabFunction(psi_dot);
 c = matlabFunction(c);

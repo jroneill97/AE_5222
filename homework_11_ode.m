@@ -1,4 +1,4 @@
-function states_dot = homework_11_ode(states,V,w_x,w_y,N_G,psi_dot)
+function states_dot = homework_11_ode(states,V,w_x,w_y,psi_dot)
     x   = states(1);
     y   = states(2);
     psi = states(3); 
