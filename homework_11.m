@@ -5,6 +5,8 @@ clc; clf; clear variables;
 hw2_2017_main;
 generate_functions;
     
+    
+    
 %% Calculate optimal trajectories given a series of initial heading angles
 num_psi_0       = 25;       % Number of initial heading angles between 0 and 2pi
 n_iterations    = 6;        % Number of iterations (more results in a more precise final answer)

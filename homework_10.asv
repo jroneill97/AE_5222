@@ -1,0 +1,9 @@
+clc; clear all;
+
+
+fun = @homework_10_linear_equations;
+guess = ones(1,29);
+x1 = zeros(1,6);
+x2 = zeros(1,6);
+p1 = zeros(1,6);
+fsolve(fun, guess);
