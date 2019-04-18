@@ -11,20 +11,19 @@ generate_functions;
 num_psi_0       = 25;       % Number of initial heading angles between 0 and 2pi
 n_iterations    = 6;        % Number of iterations (more results in a more precise final answer)
 t0              = 0;        % Initial Time
-tf              = 20;        % Final Time (not necessary to adjust)
+tf              = 30;        % Final Time (not necessary to adjust)
 pos_0           = [-1 -1];  % Initial x, y coordinates
-psi_0_span      = linspace(0,pi,100);
+psi_0_span      = linspace(0,2*pi,100);
 psi_repeat_list = psi_0_span;
 check_radius    = 0.1;
 nip             = 2;        % Number of integration points
+V               = 0.1;
 
 x = linspace(-1,1,N_G);
 y = linspace(-1,1,N_G);
 z = zeros(N_G);
 for i = 1:length(x)
     for j = 1:length(y)
-        grad_x(i,j) = w_x(x(i),y(j));
-        grad_y(i,j) = w_y(x(i),y(j));
         z(i,j)      = c(x(i),y(j));
     end
 end
@@ -35,8 +34,8 @@ for N = 1:n_iterations
     new_repeat_list = 0;
     clf;
     hold on;    
-    contour(x,y,z,N_G); % Contour plot
-    quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),grad_x,grad_y); % Wind gradient
+    contour(x,y,z',N_G); % Contour plot
+%     quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),grad_x,grad_y); % Wind gradient
 %     xlim([1 - 2*check_radius 1 + 2*check_radius]);
 %     ylim([1 - 2*check_radius 1 + 2*check_radius]);
     xlim([-1 1]);
@@ -56,7 +55,7 @@ for N = 1:n_iterations
             t2 = step_size*k;
             temp_tspan = t1:(t2-t1)/nip:t2; 
             [tNew,tempStates] = ode45(@(t,y) homework_11_ode...
-                                       (y,V,w_x,w_y,psi_dot),...
+                                       (y,V,psi_dot),...
                                         temp_tspan,currentStates);
             t(k) = t2;
             currentStates = tempStates(nip+1,1:3)';

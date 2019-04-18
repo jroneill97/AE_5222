@@ -31,7 +31,7 @@ threat_basis_data.offset				= 3;
 
 %% Example of setting up a uniform grid and calculating threat value at any grid point
 
-N_G	 = 50; % <== Change this number to get a different grid
+N_G	 = 100; % <== Change this number to get a different grid
 grid_world.n_grid_points= N_G^2;
 grid_world.n_grid_row	= N_G;
 grid_world.spacing		= 2 / (grid_world.n_grid_row - 1);
