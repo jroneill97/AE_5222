@@ -140,7 +140,7 @@
 %
 % See also: gplot, gplotd, gplotdc, distmat, ve2axy, axy2ve
 %
-function [costs,paths] = dijkstra(AorV,xyCorE,SID,FID,showWaitbar)
+function [costs,paths,n_iteration] = dijkstra(AorV,xyCorE,SID,FID,showWaitbar)
     
     narginchk(2,5);
     
@@ -214,10 +214,10 @@ function [costs,paths] = dijkstra(AorV,xyCorE,SID,FID,showWaitbar)
         iTable(I) = 0;
         isSettled(I) = true;
         path(I) = {I};
-        
+        n_iteration = 1;
         % Execute Dijkstra's Algorithm for this vertex
         while any(~isSettled(FID))
-            
+            n_iteration = n_iteration + 1;
             % Update the table
             jTable = iTable;
             iTable(I) = NaN;
@@ -261,6 +261,7 @@ function [costs,paths] = dijkstra(AorV,xyCorE,SID,FID,showWaitbar)
         if showWaitbar && ~mod(k,ceil(L/100))
             waitbar(k/L,hWait);
         end
+       
     end
     if showWaitbar
         delete(hWait);

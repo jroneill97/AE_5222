@@ -10,7 +10,6 @@ end
 
 G = flipud(reshape(V',[N_G,N_G])');
 
-% ----- Used ____'s code to calculate adjacency matrix ----- %
 [r, c] = size(G);                            % Get the matrix size
 diagVec1 = repmat([ones(c-1, 1); 0], r, 1);  % Make the first diagonal vector
                                              %   (for horizontal connections)
@@ -20,7 +19,6 @@ diagVec2 = ones(c*(r-1), 1);                 % Make the second diagonal vector
 adj = diag(diagVec1, 1)+diag(diagVec2, c);   % Add the diagonals to a zero matrix
 adj = adj+adj.';                             % Add the matrix to a transposed copy of
                                              %   itself to make it symmetric                                             
-% -----
 
 edge_cost = 0;
 node_array = [0;0];
@@ -38,12 +36,13 @@ edge_cost = edge_cost(2:end);
 E = [node_array; edge_cost]';
 pos = grid_world.coordinates';
 
-[cost, path] = dijkstra(pos,E,1,N_G^2);
+[cost, path, n_iterations] = dijkstra(pos,E,1,N_G^2);
+fprintf("For N_G = %d, the path cost = %0.3f, and number of iterations = %d\n",N_G,cost,n_iterations);
 
 %% Plotting the path 
 contour3( linspace(-1,1,N_G), linspace(-1,1,N_G),reshape(threat_value_true,[N_G N_G])',N_G);
 [g1, g2] = gradient(reshape(threat_value_true,[N_G N_G])');
-quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),g1,g2);
+% quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),g1,g2);
 for i = 1:length(path)-1
     node = path(i);
     node_future = path(i+1);
