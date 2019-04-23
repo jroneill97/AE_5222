@@ -1,14 +1,21 @@
-clc; clear; clf;
+clc; clear; close all;
 
-SA = @(x1,x2,x3) 2.*x3.*(x1+x2) + x1.*x2;
-V = 1;
-x1 = (2*V)^(1/3)
-x2 = (2*V)^(1/3)
-x3 = V/(2*V)^(2/3)
+amplitude = [10 9.84 7.92 7.84 3.92 1.54 1.44];
+phase     = [5e-3 1.54e-3 660e-6 390e-6 228e-6 81e-6 73e-6];
+frequency = [100 300 900 1000 3000 9000 10000];
+PS = -atand((phase.^-1)./1300);
+
+figure;
+semilogx(frequency, 20*log10(amplitude));
 hold on;
-plot(linspace(-1,1),linspace(1,1));
-plot(linspace(-1,1),SA(linspace(x1-1,x1+1),linspace(x2-1,x2+1),linspace(x3-1,x3+1)));
-plot(linspace(-1,1),linspace(x1-1,x1+1).*linspace(x2-1,x2+1).*linspace(x3-1,x3+1));
-scatter(0,SA(x1,x2,x3));
-
-drawnow;
+semilogx(linspace(1300,1300),linspace(0,20));
+xlabel('frequency (Hz)');
+ylabel('gain (dB)');
+grid on
+figure;
+semilogx(frequency, PS);
+hold on;
+semilogx(linspace(1300,1300),linspace(-90,0));
+xlabel('frequency (Hz)');
+ylabel('phase (deg)');
+grid on;
