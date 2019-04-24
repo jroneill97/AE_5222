@@ -50,7 +50,7 @@ end
 
 %% Dijkstra's algorithm to find minimum path
 
-start_node = 528; % node where the question says the pallets start
+start_node = 1; % node where the question says the pallets start
 end_node   = 720;
 [cost, path, n_iterations] = dijkstra(adj_mat,cost_mat,start_node,end_node);
 
