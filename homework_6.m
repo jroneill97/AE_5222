@@ -40,7 +40,7 @@ E = E(2:end,:);
 
 for n = 1:length(Nodes)
     for j = 2:length(Nodes(n).adjacent_nodes) % there's a random 0 in the beginning of the path so j
-                % needs to be 2:7 instead of 1:6
+                                              % needs to start at 2 instead of 1
         [~,temp] = ismember(E(:,1:2),[n, Nodes(n).adjacent_nodes(j)],'rows');
         [~,idx]  = min(abs(temp-1));
         cost_mat(n,Nodes(n).adjacent_nodes(j)) = E(idx,3);
