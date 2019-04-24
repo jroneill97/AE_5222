@@ -24,7 +24,7 @@ end
 % Each node will be assigned to the adjacent_nodes arrays for each Node(i)
 cost_mat = zeros(length(Nodes));
 adj_mat  = zeros(length(Nodes));
-E        = zeros(1,3);
+E        = (zeros(1,3));
 for n = 1:length(Nodes)
     for swap_idx = 1:6
         swapped_config = swap_with_bt(Nodes(n).config,swap_idx);
@@ -34,13 +34,7 @@ for n = 1:length(Nodes)
                 Nodes(n).adjacent_nodes(end+1) = i;
             end
         end
-    end    
-
-    Nodes(n).config_cost = dist_mat(Nodes(n).config(1),Nodes(n).config(2)) + ...
-                         dist_mat(Nodes(n).config(3),Nodes(n).config(4)) + ...
-                         dist_mat(Nodes(n).config(5),Nodes(n).config(6));
-                     
-
+    end
 end
 E = E(2:end,:);
 
