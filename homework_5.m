@@ -63,9 +63,9 @@ for k = 1:length(J)
             " = " + string(J(k)) + ";\n");
 end
 
-int_guess = 0*ones(1,28);
-int_guess(1:4) = [2 1 2 2];
-int_guess(20)  = 0;
+int_guess = ones(1,28);
+int_guess(1:4) = [5 1 5 1.5];
+
 
 state_out = fsolve(@derivatives_question_8,int_guess);
 
