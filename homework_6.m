@@ -58,6 +58,7 @@ end_node   = 720;
 [cost, path, n_iterations] = dijkstra(adj_mat,cost_mat,start_node,end_node);
 
 fprintf('------ Calculated Minimum Cost Path ------\n\n');
+fprintf('Path cost = %d\n\n', cost);
 for node = path
     disp(Nodes(node).path);    
 end
