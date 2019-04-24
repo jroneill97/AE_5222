@@ -33,7 +33,7 @@ adj_mat  = zeros(length(Nodes));
 
 for n = 1:length(Nodes)
     for swap_idx = 1:6
-        swapped_path = swap_elements(Nodes(n).path,swap_idx);
+        swapped_path = swap_with_bt(Nodes(n).path,swap_idx);
         for i = 1:length(Nodes)
             if Nodes(i).path == swapped_path
                  Nodes(n).adjacent_nodes(end+1) = i;
@@ -52,6 +52,7 @@ for n = 1:length(Nodes)
     end
 end
 
+%% Dijkstra's algorithm to find minimum path
 
 start_node = 528; % node where the question says the pallets start
 end_node   = 720;
@@ -59,19 +60,17 @@ end_node   = 720;
 
 fprintf('------ Calculated Minimum Cost Path ------\n\n');
 fprintf('Path cost = %d\n\n', cost);
+fprintf('     p1 |  p2 |  p3 |  p4 |  p5 |  \n');
 for node = path
     disp(Nodes(node).path);    
 end
 
 
-function swapped_path = swap_elements(path,first_idx)
-    [~, l] = size(path);
-    if first_idx == l
-        swapped_path = [path(end) path(2:(end-1)) path(1)];
-        return;
-    end
+
+%% Function definition
+function swapped_path = swap_with_bt(path,idx)
     swapped_path = path;
-    swapped_path([first_idx first_idx+1]) = path([first_idx+1 first_idx]);    
+    swapped_path([idx end]) = path([end idx]);    
 end
 
 
