@@ -23,14 +23,13 @@ for i = 1:length(all_paths)
     Nodes(i).adjacent_nodes = 0;
 end
 
-% Node #528 is the starting node
-
-%% Fill in adjacency arrays
+%% Fill in adjacency and cost matrices
 
 % There are 6 adjacent paths (nodes) for each node.
 % need to make 6 adjacent paths, then find which nodes correspond to each
 % Each node will be assigned to the adjacent_nodes arrays for each Node(i)
-adj_mat = zeros(length(Nodes));
+cost_mat = zeros(length(Nodes));
+adj_mat  = zeros(length(Nodes));
 
 for n = 1:length(Nodes)
     for swap_idx = 1:6
@@ -42,15 +41,27 @@ for n = 1:length(Nodes)
         end
     end    
     
-    for j = 2:7 % there's a random 0 in the beginning of the path so j needs to be 2:7 instead 
-                % needs to be 
-        adj_mat(n,Nodes(n).adjacent_nodes(j)) = Node(n).path_cost;
-        
-        
+    Nodes(n).path_cost = dist_mat(Nodes(n).path(1),Nodes(n).path(2)) + ...
+                         dist_mat(Nodes(n).path(3),Nodes(n).path(4)) + ...
+                         dist_mat(Nodes(n).path(5),Nodes(n).path(6));
+                     
+    for j = 2:7 % there's a random 0 in the beginning of the path so j
+                % needs to be 2:7 instead of 1:6
+        cost_mat(n,Nodes(n).adjacent_nodes(j)) = Nodes(n).path_cost;
+        adj_mat(n,Nodes(n).adjacent_nodes(j)) = 1;
     end
-    
 end
 
+
+start_node = 528; % node where the question says the pallets start
+end_node   = 720;
+[cost, path, n_iterations] = dijkstra(adj_mat,cost_mat,start_node,end_node);
+
+fprintf('------ 
+for node = path
+    fprintf("start
+    
+end
 
 
 function swapped_path = swap_elements(path,first_idx)

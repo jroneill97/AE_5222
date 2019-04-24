@@ -57,6 +57,10 @@ start_node = 528; % node where the question says the pallets start
 end_node   = 720;
 [cost, path, n_iterations] = dijkstra(adj_mat,cost_mat,start_node,end_node);
 
+fprintf('------ Calculated Minimum Cost Path ------\n\n');
+for node = path
+    disp(Nodes(node).path);    
+end
 
 
 function swapped_path = swap_elements(path,first_idx)
