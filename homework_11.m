@@ -11,16 +11,16 @@ generate_functions;
 num_psi_0       = 25;       % Number of initial heading angles between 0 and 2pi
 n_iterations    = 6;        % Number of iterations (more results in a more precise final answer)
 t0              = 0;        % Initial Time
-tf              = 30;        % Final Time (not necessary to adjust)
+tf              = 60;        % Final Time (not necessary to adjust)
 pos_0           = [-1 -1];  % Initial x, y coordinates
-psi_0_span      = linspace(0,2*pi,100);
+psi_0_span      = linspace(pi/2,pi/1.5,100);
 psi_repeat_list = psi_0_span;
-check_radius    = 0.1;
+check_radius    = 0.5;
 nip             = 2;        % Number of integration points
 V               = 0.1;
 
-x = linspace(-1,1,N_G);
-y = linspace(-1,1,N_G);
+x = linspace(-2,2,N_G);
+y = linspace(-2,2,N_G);
 z = zeros(N_G);
 for i = 1:length(x)
     for j = 1:length(y)
@@ -34,12 +34,12 @@ for N = 1:n_iterations
     new_repeat_list = 0;
     clf;
     hold on;    
-    contour(x,y,z',N_G); % Contour plot
+    contour(x,y,z',100); % Contour plot
 %     quiver(linspace(-1,1,N_G), linspace(-1,1,N_G),grad_x,grad_y); % Wind gradient
 %     xlim([1 - 2*check_radius 1 + 2*check_radius]);
 %     ylim([1 - 2*check_radius 1 + 2*check_radius]);
-    xlim([-1 1]);
-    ylim([-1 1]);
+    xlim([-2 2]);
+    ylim([-2 2]);
     grid on;
     viscircles([1 1],check_radius);
     

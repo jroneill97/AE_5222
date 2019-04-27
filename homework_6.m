@@ -29,7 +29,8 @@ for n = 1:length(Nodes)
     for swap_idx = 1:6
         swapped_config = swap_with_bt(Nodes(n).config,swap_idx);
         for i = 1:length(Nodes)
-            if isequal(Nodes(i).config, swapped_config) && (n ~= i) && (swap_idx ~= swapped_config(end))
+            if isequal(Nodes(i).config, swapped_config) &&...
+                    (n ~= i) && (swap_idx ~= swapped_config(end))
                 E(end+1,:) = [n i dist_mat(swap_idx,swapped_config(end))];
                 Nodes(n).adjacent_nodes(end+1) = i;
             end
@@ -50,7 +51,7 @@ end
 
 %% Dijkstra's algorithm to find minimum path
 
-start_node = 1; % node where the question says the pallets start
+start_node = 528; % node where the question says the pallets start
 end_node   = 720;
 [cost, path, n_iterations] = dijkstra(adj_mat,cost_mat,start_node,end_node);
 
