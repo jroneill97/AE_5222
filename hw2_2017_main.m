@@ -1,4 +1,4 @@
-clear variables; %close all; clc
+%clear variables; %close all; clc
 
 % Constant N_P in the expression for threat field
 threat_basis_data.n_threat_parameters	= 25;
