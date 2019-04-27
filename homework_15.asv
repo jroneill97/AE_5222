@@ -1,0 +1,45 @@
+clc; clear;
+
+N = 5;
+
+syms x
+func = legendreP(5,x);
+L_1 = diff(func,x,1);
+t = vpasolve(L_1==0);
+t = [-1 t' 1]';
+
+syms tau_f
+J = tau_f;
+
+for k = 1:N+1
+    J = J + (2/(N*(N+1)))*legendreP(5,t(k))^(-2);
+end
+
+
+ 
+A1_1 = @(k) - a2(k);
+A1_2 = @(k) - a3(k);
+
+for k = 1:N+1
+    A1_1 = A1_1(k) + 2*(get_D(k,1)*sym(get_a(k,1))
+
+
+end
+
+function a = get_a(l,k)
+    a = "a_" + string(l) + "_" + string(k);
+end
+
+function D = get_D(m,l)
+    D1 = (legendreP(5,t(m))/legendreP(5,t(l)))*(1/(t(m)-t(l)));
+    D2 = -(N*(N+1))/4;
+    D3 = (N*(N+1))/4;
+    D4 = 0;
+
+    D = [[D2 D1 D1 D1 D1 D1];
+         [D1 D4 D1 D1 D1 D1];
+         [D1 D1 D4 D1 D1 D1];
+         [D1 D1 D1 D4 D1 D1];
+         [D1 D1 D1 D1 D4 D1];
+         [D1 D1 D1 D1 D1 D3]];
+end
