@@ -81,7 +81,7 @@ J = matlabFunction(J);
 
 %% solving with fmincon
 
-int_guess = ones(1,25);
+int_guess = 10*ones(1,25);
 options = optimoptions(@fmincon,"Algorithm","sqp");
 fmincon(@objfun,int_guess,[],[],[],[],[],[],@equations_homework_15,options)
 

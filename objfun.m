@@ -1,2 +1,2 @@
-function f = objfun(tau_f)
-f = tau_f + 2;
+function f = objfun(states)
+f = states(25) + 2;
