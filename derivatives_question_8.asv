@@ -7,7 +7,7 @@ function states_out = derivatives_question_8(x)
     v_n      = 0.1736;
     V        = 0.1;
     x_N      = 1;
-    y_N      = 1;
+    y
         dc_dx0  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
         dc_dx1  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
         dc_dx2  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
