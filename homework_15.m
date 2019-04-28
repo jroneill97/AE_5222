@@ -28,7 +28,6 @@ state_array = [
 
 
 J = tau_f;
-
 for k = 1:N+1
     J = J + (2/(N*(N+1)))*legendreP(5,t(k))^(-2);
 end
@@ -81,6 +80,7 @@ fprintf("A2_6 = " + string(A2_6) + ";\n");
 
 %% solving with fmincon
 
+int_guess = ones(1,18);
 fmincon(J,int_guess,[],[],[],[],[],[],@equations_homework_15);
 
 
