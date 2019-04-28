@@ -1,64 +1,44 @@
 function states_out = derivatives_question_8(x)
     hw2_2017_main;
     N        = 25;
-    theta    = threat_parameters_true(1:N);
-    x1_bar   = threat_basis_data.basis_parameters.mean(1,1:N)';
-    x2_bar   = threat_basis_data.basis_parameters.mean(1,1:N)';
+theta = [...
+	1.1665    1.2128    0.4855    1.0260    0.8707   -0.3818    0.4289  ...
+	-0.2991   -0.8999   0.6347	  0.0675   -0.1871    0.2917    0.9877  ...
+	0.3929    0.1946    0.2798    0.0512   -0.7745    0.7868 	1.4089  ...
+	-0.5341    1.9278   -0.1762   -0.2438];
+    
+ x1_bar = [-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667,-0.666666666666667,-0.333333333333333,0,0.333333333333333,0.666666666666667];
+ x2_bar = [-0.666666666666667,-0.666666666666667,-0.666666666666667,-0.666666666666667,-0.666666666666667,-0.333333333333333,-0.333333333333333,-0.333333333333333,-0.333333333333333,-0.333333333333333,0,0,0,0,0,0.333333333333333,0.333333333333333,0.333333333333333,0.333333333333333,0.333333333333333,0.666666666666667,0.666666666666667,0.666666666666667,0.666666666666667,0.666666666666667];
+ 
     v_n      = 0.1736;
     V        = 0.1;
     x_N      = 1;
     y_N      = 1;
-        dc_dx0  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx1  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx2  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx3  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx4  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx5  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx6  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx7  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx8  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx9  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dx10 = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
+
+        dc_dx0  = @(n)  ((-1*theta(n)*(x(1) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(1) -x1_bar(n))^2+(x(12)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx1  = @(n)  ((-1*theta(n)*(x(2) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(2) -x1_bar(n))^2+(x(13)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx2  = @(n)  ((-1*theta(n)*(x(3) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(3) -x1_bar(n))^2+(x(14)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx3  = @(n)  ((-1*theta(n)*(x(4) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(4) -x1_bar(n))^2+(x(15)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx4  = @(n)  ((-1*theta(n)*(x(5) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(5) -x1_bar(n))^2+(x(16)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx5  = @(n)  ((-1*theta(n)*(x(6) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(6) -x1_bar(n))^2+(x(17)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx6  = @(n)  ((-1*theta(n)*(x(7) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(7) -x1_bar(n))^2+(x(18)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx7  = @(n)  ((-1*theta(n)*(x(8) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(8) -x1_bar(n))^2+(x(19)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx8  = @(n)  ((-1*theta(n)*(x(9) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(9) -x1_bar(n))^2+(x(20)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx9  = @(n)  ((-1*theta(n)*(x(10)-x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(10)-x1_bar(n))^2+(x(21)-x2_bar(n))^2)/(-2*v_n));
+        dc_dx10 = @(n)  ((-1*theta(n)*(x(11)-x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(11)-x1_bar(n))^2+(x(22)-x2_bar(n))^2)/(-2*v_n));
 
 
-        dc_dy0  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy1  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy2  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy3  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy4  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy5  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy6  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy7  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy8  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy9  = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-        dc_dy10 = @(n) 0.5*(x_N-1)^2 + 0.5*(y_N-1)^2;
-    for n = 1:N
-        dc_dx0  = @(n) dc_dx0(n)  + ((-1*theta(n)*(x(1) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(1) -x1_bar(n))^2+(x(12)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx1  = @(n) dc_dx1(n)  + ((-1*theta(n)*(x(2) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(2) -x1_bar(n))^2+(x(13)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx2  = @(n) dc_dx2(n)  + ((-1*theta(n)*(x(3) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(3) -x1_bar(n))^2+(x(14)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx3  = @(n) dc_dx3(n)  + ((-1*theta(n)*(x(4) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(4) -x1_bar(n))^2+(x(15)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx4  = @(n) dc_dx4(n)  + ((-1*theta(n)*(x(5) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(5) -x1_bar(n))^2+(x(16)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx5  = @(n) dc_dx5(n)  + ((-1*theta(n)*(x(6) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(6) -x1_bar(n))^2+(x(17)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx6  = @(n) dc_dx6(n)  + ((-1*theta(n)*(x(7) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(7) -x1_bar(n))^2+(x(18)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx7  = @(n) dc_dx7(n)  + ((-1*theta(n)*(x(8) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(8) -x1_bar(n))^2+(x(19)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx8  = @(n) dc_dx8(n)  + ((-1*theta(n)*(x(9) -x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(9) -x1_bar(n))^2+(x(20)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx9  = @(n) dc_dx9(n)  + ((-1*theta(n)*(x(10)-x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(10)-x1_bar(n))^2+(x(21)-x2_bar(n))^2)/(-2*v_n));
-        dc_dx10 = @(n) dc_dx10(n) + ((-1*theta(n)*(x(11)-x1_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(11)-x1_bar(n))^2+(x(22)-x2_bar(n))^2)/(-2*v_n));
-
-
-        dc_dy0  = @(n) dc_dy0(n)  + ((-1*theta(n)*(x(12)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(1) -x1_bar(n))^2+(x(12)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy1  = @(n) dc_dy1(n)  + ((-1*theta(n)*(x(13)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(2) -x1_bar(n))^2+(x(13)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy2  = @(n) dc_dy2(n)  + ((-1*theta(n)*(x(14)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(3) -x1_bar(n))^2+(x(14)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy3  = @(n) dc_dy3(n)  + ((-1*theta(n)*(x(15)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(4) -x1_bar(n))^2+(x(15)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy4  = @(n) dc_dy4(n)  + ((-1*theta(n)*(x(16)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(5) -x1_bar(n))^2+(x(16)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy5  = @(n) dc_dy5(n)  + ((-1*theta(n)*(x(17)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(6) -x1_bar(n))^2+(x(17)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy6  = @(n) dc_dy6(n)  + ((-1*theta(n)*(x(18)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(7) -x1_bar(n))^2+(x(18)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy7  = @(n) dc_dy7(n)  + ((-1*theta(n)*(x(19)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(8) -x1_bar(n))^2+(x(19)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy8  = @(n) dc_dy8(n)  + ((-1*theta(n)*(x(20)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(9) -x1_bar(n))^2+(x(20)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy9  = @(n) dc_dy9(n)  + ((-1*theta(n)*(x(21)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(10)-x1_bar(n))^2+(x(21)-x2_bar(n))^2)/(-2*v_n));
-        dc_dy10 = @(n) dc_dy10(n) + ((-1*theta(n)*(x(22)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(11)-x1_bar(n))^2+(x(12)-x2_bar(n))^2)/(-2*v_n));
-    end
-
+        dc_dy0  = @(n)  ((-1*theta(n)*(x(12)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(1) -x1_bar(n))^2+(x(12)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy1  = @(n)  ((-1*theta(n)*(x(13)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(2) -x1_bar(n))^2+(x(13)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy2  = @(n)  ((-1*theta(n)*(x(14)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(3) -x1_bar(n))^2+(x(14)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy3  = @(n)  ((-1*theta(n)*(x(15)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(4) -x1_bar(n))^2+(x(15)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy4  = @(n)  ((-1*theta(n)*(x(16)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(5) -x1_bar(n))^2+(x(16)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy5  = @(n)  ((-1*theta(n)*(x(17)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(6) -x1_bar(n))^2+(x(17)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy6  = @(n)  ((-1*theta(n)*(x(18)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(7) -x1_bar(n))^2+(x(18)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy7  = @(n)  ((-1*theta(n)*(x(19)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(8) -x1_bar(n))^2+(x(19)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy8  = @(n)  ((-1*theta(n)*(x(20)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(9) -x1_bar(n))^2+(x(20)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy9  = @(n)  ((-1*theta(n)*(x(21)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(10)-x1_bar(n))^2+(x(21)-x2_bar(n))^2)/(-2*v_n));
+        dc_dy10 = @(n)  ((-1*theta(n)*(x(22)-x2_bar(n)))/(sqrt(2*pi)*v_n^1.5))*exp(((x(11)-x1_bar(n))^2+(x(12)-x2_bar(n))^2)/(-2*v_n));
     % x(k+1)
     states_out(1) = x(1) +1;
     states_out(2) = x(2) -V*cos(x(45))-x(1);

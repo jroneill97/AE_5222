@@ -46,9 +46,9 @@ for n = 1:N_p
     p1_dot = p1_dot + p1_dot_sum_part(n);
     p2_dot = p2_dot + p2_dot_sum_part(n);
 end
-syms psi
+
 p1 = -c/(V*cos(psi) + tan(psi)*(V*sin(psi)));
-p2 = (-tan(psi)*c)/(V*cos(psi) + tan(psi)*(V*sin(psi)));
+P2 = (-tan(psi)*c)/(V*cos(psi) + tan(psi)*(V*sin(psi)));
 
 %%
 
@@ -68,20 +68,12 @@ dc_dy = dc_dy + dc_dy_n(n);
 end
 
 
-
+syms psi
 
 psi_dot = V*((dc_dy*cos(psi) - dc_dx*sin(psi))/c);
 
-H = c + p1*(V*cos(psi)) + p2*(V*sin(psi));
-
-
-
 psi_dot = matlabFunction(psi_dot);
 c = matlabFunction(c);
-p1 = matlabFunction(p1);
-p2 = matlabFunction(p2);
-H = matlabFunction(H);
-
 
 
 
