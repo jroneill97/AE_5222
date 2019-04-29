@@ -1,13 +1,15 @@
-clc; clear; close all;
+clc; clear; clf;
 
-w = 6.286e3;
+t = linspace(0,1,10000000);
 
-p1 = w*(cosd(90+22.5) + i*sind(90+22.5))
-p2 = w*(cosd(90+45+22.5) + i*sind(90+45+22.5))
-p3 = w*(cosd(90+45+22.5) - i*sind(90+45+22.5))
-p4 = w*(cosd(90+22.5) - i*sind(90+22.5))
+A = 1000;
+Vhum   = sin(2*pi*60*t);
+Vaudio = 0.1*sin(2*pi*600*t);
 
-syms s
-s = tf('s');
+a = (A/(1+A))*Vaudio + Vhum;
+b = A*Vaudio + Vhum;
 
-D = (s-p1)*(s-p2)*(s-p3)*(s-p4)
+ plot(t,a);
+ hold on
+ plot(t,b);
+xlim([0 1/60])

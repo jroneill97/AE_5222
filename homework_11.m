@@ -45,49 +45,41 @@ for N = 1:n_iterations
     viscircles([1 1],check_radius);
     
     for current_psi_0 = psi_0_span
+        t         = t0; % initialize t
+        step_size = check_radius/3;
+        n_steps   = tf/step_size;
+        tspan     = t0:step_size:tf;            % Total time span
+        currentStates = [pos_0  1.620745945975720]'; % State array used inside the loop
         
-        %% check whether that line hits the circle
-        %% if it does, then sweep in higher resolution
-            t         = t0; % initialize t
-            step_size = check_radius/3;
-            n_steps   = tf/step_size;
-            tspan     = t0:step_size:tf;            % Total time span
-            currentStates = [pos_0 current_psi_0]'; % State array used inside the loop
-            
-            for k = 1:n_steps
-                t1 = step_size*(k-1);
-                t2 = step_size*k;
-                temp_tspan = t1:(t2-t1)/nip:t2;
-                [tNew,tempStates] = ode45(@(t,y) homework_11_ode...
-                    (y,V,psi_dot),...
-                    temp_tspan,currentStates);
-                t(k) = t2;
-                currentStates = tempStates(nip+1,1:3)';
-                states_out(k,:) = currentStates';
-            end
-            
-            plot(states_out(:,1),states_out(:,2)); %,'-s'); % Plot calculated trajectory
-            drawnow;
-for y = 1:length(states_out) % Test whether the trajectory crosses check radius
-    if (norm([states_out(y,1) states_out(y,2)] - [1 1]) < check_radius)...
-            && (~ismember(current_psi_0,new_repeat_list))
-        new_repeat_list = [new_repeat_list current_psi_0];
-
-        path_cost = 0;
-        for i = ceil(linspace(1,length(states_out(:,1)),50))
-            for j = ceil(linspace(1,length(states_out(:,2)),50))
-                path_cost = path_cost + c(states_out(i,1),states_out(j,2));
+        for k = 1:n_steps
+            t1 = step_size*(k-1);
+            t2 = step_size*k;
+            temp_tspan = t1:(t2-t1)/nip:t2;
+            [tNew,tempStates] = ode45(@(t,y) homework_11_ode...
+                (y,V,psi_dot),...
+                temp_tspan,currentStates);
+            t(k) = t2;
+            currentStates = tempStates(nip+1,1:3)';
+            states_out(k,:) = currentStates';
+        end
+        
+        plot(states_out(:,1),states_out(:,2)); %,'-s'); % Plot calculated trajectory
+        drawnow;
+        for y = 1:length(states_out) % Test whether the trajectory crosses check radius
+            if (norm([states_out(y,1) states_out(y,2)] - [1 1]) < check_radius)...
+                    && (~ismember(current_psi_0,new_repeat_list))
+                new_repeat_list = [new_repeat_list current_psi_0];
+                
+                path_cost = 0;
+                for i = ceil(linspace(1,length(states_out(:,1)),50))
+                    for j = ceil(linspace(1,length(states_out(:,2)),50))
+                        path_cost = path_cost + c(states_out(i,1),states_out(j,2));
+                    end
+                end
+                cost_list       = [cost_list path_cost];
+                break;
             end
         end
-        cost_list       = [cost_list path_cost];
-        break;
-    end
-end
-  
-        
-        
-        
-        
     end
     
     drawnow;
@@ -113,7 +105,7 @@ end
     fprintf('path costs:\n');
     disp(new_cost_list');
     fprintf('\n');
-%     pause;
+    %     pause;
 end
 
 
