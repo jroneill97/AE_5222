@@ -1,4 +1,4 @@
-function funs = homework_10_linear_equations(x)
+function F = homework_10_linear_equations(x)
 x1_0 = x(1);
 x1_1 = x(2);
 x1_2 = x(3);
@@ -65,6 +65,9 @@ F(22) = p2_5 + 0.05*x2_4 + p1_4;
 F(23) = p2_5 - 0.05*x2_5;
 
 %% u
-
-
+F(24)=u0+p2_0;
+F(25)=u1+p2_1;
+F(26)=u2+p2_2;
+F(27)=u3+p2_3;
+F(29)=u4+p2_4;
 

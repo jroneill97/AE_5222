@@ -1,0 +1,14 @@
+clc; clear all;
+
+% 
+% fun = @homework_10_linear_equations;
+% options = optimoptions(@fsolve,"MaxFunctionEvaluations",20000,...
+%     "MaxIterations",100000);
+% guess = 5*ones(1,29);
+% fsolve(fun, guess,options)
+
+
+a = linspace(0,100);
+t = [a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a;a];
+
+    
