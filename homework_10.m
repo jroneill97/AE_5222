@@ -74,30 +74,30 @@ B = zeros(1,29);
 B(1) = 5;
 B(7) = 2;
 
-inv(A) * (-B)';
+states_out = inv(A) * (-B)';
 
 
-a1_   = states_out(1:6);
-a2_   = states_out(7:12);
-a3_   = states_out(13:18);
-b_    = states_out(19:24);
-tau_f = states_out(25);
+x1   = states_out(1:6);
+x2   = states_out(7:12);
+p1   = states_out(13:18);
+p2   = states_out(19:25);
+u    = states_out(25:29);
 
 fprintf("Results:\n");
-fprintf("a1 = ");
-fprintf("%0.1f ",a1_);
+fprintf("x1 = ");
+fprintf("%0.1f ",x1);
 fprintf("\n");
-fprintf("a2 = ");
-fprintf("%0.1f ",a2_);
+fprintf("x2 = ");
+fprintf("%0.1f ",x2);
 fprintf("\n");
-fprintf("a3 = ");
-fprintf("%0.1f ",a3_);
+fprintf("p1 = ");
+fprintf("%0.1f ",p1);
 fprintf("\n");
-fprintf("b = ");
-fprintf("%0.1f ",b_);
+fprintf("p2 = ");
+fprintf("%0.1f ",p2);
 fprintf("\n");
-fprintf("Final time = ");
-fprintf("%0.5f seconds",tau_f);
+fprintf("u = ");
+fprintf("%0.1f ",u);
 fprintf("\n");
 
 
